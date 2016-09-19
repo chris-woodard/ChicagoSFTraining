@@ -49,7 +49,10 @@
         </div>
     </div>
     
-    @Html.Script(ScriptRef.JQuery, "top")
+    @if (!SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
+    {
+        @Html.Script(ScriptRef.JQuery, "top")
+    }
 
     @* Inline editing scripts and helpers. They should be available only when inline editing is possible. *@
     @if (Html.ShouldRenderInlineEditing())
