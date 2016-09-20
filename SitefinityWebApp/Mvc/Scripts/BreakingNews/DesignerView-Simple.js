@@ -1,4 +1,4 @@
-﻿// SitefinityWebapp\Mvc\Scripts\BreakingNews\DesignerView-Fancy.js
+﻿angular.module('designer').requires.push('sfSelectors');
 
 angular.module('designer')
     .controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
@@ -20,6 +20,21 @@ angular.module('designer')
             .finally(function () {
                 $scope.feedback.showLoadingIndicator = false;
             });
+
+        $scope.$watch('properties.SelectedItem.PropertyValue', function (newValue, oldValue) {
+            debugger;
+            if (newValue) {
+                $scope.selectedItem = JSON.parse(newValue);
+            }
+        });
+
+        $scope.$watch('selectedItem', function (newValue, oldValue) {
+            debugger;
+            if (newValue) {
+                $scope.properties.SelectedItem.PropertyValue = JSON.stringify(newValue);
+            }
+        });
+
 
         // Build breaking news message form Date and Message widget properties
         $scope.buildBreakingNewsMessage = function () {
