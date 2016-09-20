@@ -1,0 +1,21 @@
+﻿@model SitefinityWebApp.Mvc.Models.WebinarModel
+
+<div>
+    <label>Title: </label>
+    <span>@Html.Raw(Model.Title)</span>
+</div>
+
+<div>
+    <label>Description: </label>
+    <span>@Html.Raw(Model.Description)</span>
+</div>
+
+<div>
+    <label>Starting at: </label>
+    <span>@Html.Raw(Model.StartTime.ToString())</span>
+</div>
+
+<div>
+    <label>Ending at: </label>
+    <span>@Html.Raw(Model.EndTime.ToString())</span>
+</div>

@@ -16,7 +16,7 @@ namespace SitefinityWebApp.Mvc.Controllers
         {
             var model = new HelloWorldModel();
             model.Message = "Hello World!";
-            return View(model);
+            return View("Index", model);
         }
 
         public ActionResult RandomNumber()
@@ -24,6 +24,11 @@ namespace SitefinityWebApp.Mvc.Controllers
             var model = new HelloWorldModel();
             model.GeneratedNumber = new Random().Next(1, 50);
             return View("RandomNumber", model);
+        }
+
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
         }
     }
 }

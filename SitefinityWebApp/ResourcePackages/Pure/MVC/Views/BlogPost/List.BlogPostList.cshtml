@@ -1,0 +1,33 @@
+﻿@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+@using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Web.DataResolving;
+
+@Html.Script(ScriptRef.JQuery, "top", false)
+
+
+<div class="posts">
+    <h1 class="content-subhead">Recent Posts</h1>
+    @foreach (var item in Model.Items)
+    {
+        var navigateUrl = HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix);
+        <section class="post">
+            <header class="post-header">
+
+                <h2 @Html.InlineEditingFieldAttributes("Title", "ShortText") class="post-title">@item.Fields.Title</h2>
+
+                <p class="post-meta">
+                    By <a class="post-author" href="#">@DataResolver.Resolve(item.DataItem, "Author", null)</a> under <a class="post-category post-category-js" href="#">Unknown</a>
+                </p>
+            </header>
+
+            <div class="post-description">
+                <p @Html.InlineEditingFieldAttributes("Summary", "ShortText")>
+                    @Html.Raw(item.Fields.Summary)
+                </p>
+            </div>
+        </section>
+    }
+</div>
