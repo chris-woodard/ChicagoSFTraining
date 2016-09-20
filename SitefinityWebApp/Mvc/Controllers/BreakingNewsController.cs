@@ -4,7 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Model;
+using Telerik.OpenAccess;
 
 namespace SitefinityWebApp.Mvc.Controllers
 {
@@ -22,8 +27,14 @@ namespace SitefinityWebApp.Mvc.Controllers
         // GET: BreakingNews
         public ActionResult Index()
         {
+            TaxonomyManager tManager = TaxonomyManager.GetManager();
+            var tag = tManager.GetTaxa<FlatTaxon>().Where(t => t.UrlName == "breaking-news").FirstOrDefault();
+
+            NewsManager nManager = NewsManager.GetManager();
+            var newsItem = nManager.GetNewsItems().Where(n => n.GetValue<TrackedList<Guid>>("Tags").Contains(tag.Id) && n.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live).FirstOrDefault();
+
             var model = new BreakingNewsModel();
-            model.Message = Message;
+            model.Message = newsItem.PublicationDate.ToString() + ' ' + newsItem.Title;
             return View("Index", model);
         }
 
