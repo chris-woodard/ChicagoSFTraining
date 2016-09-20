@@ -16,6 +16,8 @@ namespace SitefinityWebApp.Mvc.Controllers
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
+        public string SelectedItem { get; set; }
+
         // GET: Webinar
         public ActionResult Index()
         {

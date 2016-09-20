@@ -1270,6 +1270,7 @@
     <Content Include="Mvc\Views\BreakingNews\DesignerView.Simple.cshtml" />
     <Content Include="Mvc\Views\Webinar\DesignerView.Simple.cshtml" />
     <Content Include="Mvc\Views\BreakingNews\DesignerView.Simple.json" />
+    <Content Include="Mvc\Views\Webinar\DesignerView.Simple.json" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="OpenAccessNuget.targets" />

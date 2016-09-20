@@ -1,4 +1,4 @@
-﻿<div>
+﻿@*<div>
     <label>Title: </label>
     <input type="text" ng-model="properties.Title.PropertyValue" />
 </div>
@@ -16,4 +16,6 @@
 <div>
     <label>Ending at: </label>
     <input type="date" ng-model="properties.EndTime.PropertyValue" />
-</div>
+</div>*@
+
+<sf-list-selector sf-dynamic-items-selector sf-item-type="'Telerik.Sitefinity.DynamicTypes.Model.Webinars.Webinar'" sf-master="true" sf-selected-item="selectedItem" />
