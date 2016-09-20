@@ -11,6 +11,10 @@ namespace SitefinityWebApp.Mvc.Controllers
     [ControllerToolboxItem(Title = "Breaking News", Name = "BreakingNews", SectionName = "Custom")]
     public class BreakingNewsController : Controller
     {
+        public string Date { get; set; }
+
+        public string Title { get; set; }
+
         public string Message { get; set; }
 
         // GET: BreakingNews

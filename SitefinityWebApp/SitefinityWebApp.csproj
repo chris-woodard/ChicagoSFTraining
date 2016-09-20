@@ -852,6 +852,8 @@
     <Content Include="ClientBin\Telerik.Sitefinity.Silverlight.xap" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Mvc\Scripts\Webinar\DesignerView-Simple.js" />
+    <Content Include="Mvc\Scripts\BreakingNews\DesignerView-Simple.js" />
     <Content Include="ResourcePackages\DevMagazineHtml\.gitignore" />
     <Content Include="ResourcePackages\DevMagazineHtml\Article.html" />
     <Content Include="ResourcePackages\DevMagazineHtml\assets\dist\css\styles.css" />
@@ -1265,6 +1267,8 @@
     <Content Include="ResourcePackages\DevMagazineHtml\MVC\Views\News\List.NewsList.cshtml" />
     <Content Include="ResourcePackages\DevMagazineHtml\MVC\Views\Author\List.Author.cshtml" />
     <Content Include="ResourcePackages\DevMagazineHtml\MVC\Views\News\List.CustomList.cshtml" />
+    <Content Include="Mvc\Views\BreakingNews\DesignerView.Simple.cshtml" />
+    <Content Include="Mvc\Views\Webinar\DesignerView.Simple.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="OpenAccessNuget.targets" />
