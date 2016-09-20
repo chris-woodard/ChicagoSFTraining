@@ -1,7 +1,7 @@
 ﻿angular.module('designer').requires.push('sfSelectors');
 
 angular.module('designer')
-    .controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
+    .controller('SimpleCtrl', ['$scope', '$http', 'propertyService', function ($scope, $http, propertyService) {
         $scope.feedback.showLoadingIndicator = true;
 
         // Get widget properies and load them in the controller's scope
@@ -21,15 +21,17 @@ angular.module('designer')
                 $scope.feedback.showLoadingIndicator = false;
             });
 
+        $http.get('/api/default/newsitems?$filter=Tags/any(x:x eq 5de91ba4-2220-62db-a387-ff00001daa0d)').then(function (response) {
+            $scope.newsItems = response.data.value;
+        });
+
         $scope.$watch('properties.SelectedItem.PropertyValue', function (newValue, oldValue) {
-            debugger;
             if (newValue) {
                 $scope.selectedItem = JSON.parse(newValue);
             }
         });
 
         $scope.$watch('selectedItem', function (newValue, oldValue) {
-            debugger;
             if (newValue) {
                 $scope.properties.SelectedItem.PropertyValue = JSON.stringify(newValue);
             }

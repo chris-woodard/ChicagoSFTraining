@@ -831,8 +831,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdderResources.cs" />
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="AzureWebRole.cs" />
+    <Compile Include="CustomMembershipDataProvider.cs" />
+    <Compile Include="CustomNewsDataProvider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

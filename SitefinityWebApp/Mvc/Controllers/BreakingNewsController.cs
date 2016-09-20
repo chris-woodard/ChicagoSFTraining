@@ -28,13 +28,14 @@ namespace SitefinityWebApp.Mvc.Controllers
         public ActionResult Index()
         {
             TaxonomyManager tManager = TaxonomyManager.GetManager();
-            var tag = tManager.GetTaxa<FlatTaxon>().Where(t => t.UrlName == "breaking-news").FirstOrDefault();
-
-            NewsManager nManager = NewsManager.GetManager();
-            var newsItem = nManager.GetNewsItems().Where(n => n.GetValue<TrackedList<Guid>>("Tags").Contains(tag.Id) && n.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live).FirstOrDefault();
-
+            var tag = tManager.GetTaxa<FlatTaxon>().Where(t => t.Id == new Guid("5de91ba4-2220-62db-a387-ff00001daa0d")).FirstOrDefault();
             var model = new BreakingNewsModel();
-            model.Message = newsItem.PublicationDate.ToString() + ' ' + newsItem.Title;
+            if (tag != null)
+            {
+                NewsManager nManager = NewsManager.GetManager();
+                var newsItem = nManager.GetNewsItems().Where(n => n.GetValue<TrackedList<Guid>>("Tags").Contains(tag.Id) && n.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live).FirstOrDefault();
+                model.Message = newsItem.PublicationDate.ToString() + ' ' + newsItem.Title;
+            }
             return View("Index", model);
         }
 
