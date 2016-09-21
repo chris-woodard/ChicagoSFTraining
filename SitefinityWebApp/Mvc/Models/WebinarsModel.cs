@@ -39,25 +39,5 @@ namespace SitefinityWebApp.Mvc.Models
 
             return result;
         }
-
-        public void Sample()
-        {
-            var contentLinksMAnager = ContentLinksManager.GetManager();
-            var links = contentLinksMAnager.GetContentLinks()
-                .Where(cl => cl.ParentItemType == typeof(NewsItem).FullName &&
-                cl.ComponentPropertyName == "RelatedBlogPosts");
-
-            var newsManager = NewsManager.GetManager();
-            var news = newsManager.GetNewsItems();
-
-            var blogsManager = BlogsManager.GetManager();
-            var posts = blogsManager.GetBlogPosts();
-
-            var relateddata = posts
-                .Join(links, (bp) => bp.Id, (cl) => cl.ChildItemId, (bp, cl) => new { bp, cl })
-                .Join(news, (bpcl) => bpcl.cl.ParentItemId, (n) => n.Id, (bpcl, n) => new { n, bpcl.bp });
-
-            //relateddata.FirstOrDefault().
-        }
     }
 }
