@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SitefinityWebApp.Mvc.Models
+namespace SitefinityWebApp.Mvc.ViewModels
 {
-    public class WebinarModel
+    public class WebinarViewModel
     {
         public string Title { get; set; }
-        public string Description { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-
+        public string EventContent { get; set; }
     }
 }

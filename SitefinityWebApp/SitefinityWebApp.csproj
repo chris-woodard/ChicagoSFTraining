@@ -844,9 +844,10 @@
     <Compile Include="Mvc\Controllers\HelloWorldController.cs" />
     <Compile Include="Mvc\Controllers\WebinarController.cs" />
     <Compile Include="Mvc\Models\CustomNavigationModel.cs" />
-    <Compile Include="Mvc\Models\WebinarModel.cs" />
+    <Compile Include="Mvc\Models\WebinarsModel.cs" />
     <Compile Include="Mvc\Models\HelloWorldModel.cs" />
     <Compile Include="Mvc\Models\BreakingNewsModel.cs" />
+    <Compile Include="Mvc\ViewModels\WebinarViewModel.cs" />
     <Compile Include="Mvc\ViewModels\CustomNodeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

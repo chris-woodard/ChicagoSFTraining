@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Modules.Events;
 using Telerik.Sitefinity.Mvc;
 
 namespace SitefinityWebApp.Mvc.Controllers
@@ -21,8 +22,8 @@ namespace SitefinityWebApp.Mvc.Controllers
         // GET: Webinar
         public ActionResult Index()
         {
-            var model = new WebinarModel() { Title = this.Title, Description = this.Description, StartTime = this.StartTime, EndTime = this.EndTime };
-            return View("Index", model);
+            var model = new WebinarsModel();
+            return View("Index", model.GetContentList());
         }
 
         protected override void HandleUnknownAction(string actionName)

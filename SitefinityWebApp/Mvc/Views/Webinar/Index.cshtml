@@ -1,21 +1,26 @@
-﻿@model SitefinityWebApp.Mvc.Models.WebinarModel
+﻿@model IEnumerable<SitefinityWebApp.Mvc.ViewModels.WebinarViewModel>
+
+@foreach (var item in Model)
+{
 
 <div>
     <label>Title: </label>
-    <span>@Html.Raw(Model.Title)</span>
+    <span>@Html.Raw(item.Title)</span>
 </div>
 
 <div>
     <label>Description: </label>
-    <span>@Html.Raw(Model.Description)</span>
+    <span>@Html.Raw(item.EventContent)</span>
 </div>
 
-<div>
+@*<div>
     <label>Starting at: </label>
-    <span>@Html.Raw(Model.StartTime.ToString())</span>
+    <span>@Html.Raw(item.StartTime.ToString())</span>
 </div>
 
 <div>
     <label>Ending at: </label>
-    <span>@Html.Raw(Model.EndTime.ToString())</span>
-</div>
+    <span>@Html.Raw(item.EndTime.ToString())</span>
+</div>*@
+
+}
