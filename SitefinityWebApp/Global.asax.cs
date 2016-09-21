@@ -11,6 +11,10 @@ using Telerik.Sitefinity.Frontend;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Services;
+using Telerik.Microsoft.Practices.Unity;
+using SitefinityWebApp.DI;
+using Telerik.Sitefinity.Mvc;
+using System.Web.Mvc;
 
 namespace SitefinityWebApp
 {
@@ -34,6 +38,14 @@ namespace SitefinityWebApp
             {
                 FrontendModule.Current.DependencyResolver.Rebind<INavigationModel>().To<CustomNavigationModel>();
             }
+
+            // Use Service Locator mechanism to register our NinjectController factory which will provide DI for controller dependencies.
+            ObjectFactory.Container.RegisterType<ISitefinityControllerFactory, NinjectControllerFactory>(new ContainerControlledLifetimeManager());
+
+            var factory = ObjectFactory.Resolve<ISitefinityControllerFactory>();
+
+            // Set our factory as a default controller factory
+            ControllerBuilder.Current.SetControllerFactory(factory);
         }
     }
 }

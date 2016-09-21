@@ -10,12 +10,20 @@ using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.OpenAccess;
+using Telerik.Sitefinity.Abstractions;
+using SitefinityWebApp.Tests.Mocks;
 
 namespace SitefinityWebApp.Mvc.Controllers
 {
     [ControllerToolboxItem(Title = "Breaking News", Name = "BreakingNews", SectionName = "Custom")]
     public class BreakingNewsController : Controller
     {
+        private NewsManager newsManager;
+        public BreakingNewsController(INewsManagerWrapper newsManagerWrapper)
+        {
+            this.newsManager = newsManagerWrapper.GetManager();
+        }
+
         public string Date { get; set; }
 
         public string Title { get; set; }
@@ -27,15 +35,11 @@ namespace SitefinityWebApp.Mvc.Controllers
         // GET: BreakingNews
         public ActionResult Index()
         {
-            TaxonomyManager tManager = TaxonomyManager.GetManager();
-            var tag = tManager.GetTaxa<FlatTaxon>().Where(t => t.Id == new Guid("5de91ba4-2220-62db-a387-ff00001daa0d")).FirstOrDefault();
-            var model = new BreakingNewsModel();
-            if (tag != null)
-            {
-                NewsManager nManager = NewsManager.GetManager();
-                var newsItem = nManager.GetNewsItems().Where(n => n.GetValue<TrackedList<Guid>>("Tags").Contains(tag.Id) && n.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live).FirstOrDefault();
-                model.Message = newsItem.PublicationDate.ToString() + ' ' + newsItem.Title;
-            }
+            var firstNewsItem = newsManager.GetNewsItems().FirstOrDefault();
+
+            BreakingNewsModel model = new BreakingNewsModel();
+            model.Message = firstNewsItem.Title;
+
             return View("Index", model);
         }
 
