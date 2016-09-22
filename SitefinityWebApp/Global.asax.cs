@@ -25,6 +25,18 @@ namespace SitefinityWebApp
         {
             Bootstrapper.Initialized += this.Bootstrapper_Initialized;
             SystemManager.ApplicationStart += SystemManager_ApplicationStart;
+            Bootstrapper.Bootstrapped += Bootstrapper_Bootstrapped;
+        }
+
+        private void Bootstrapper_Bootstrapped(object sender, EventArgs e)
+        {
+            // Use Service Locator mechanism to register our NinjectController factory which will provide DI for controller dependencies.
+            ObjectFactory.Container.RegisterType<ISitefinityControllerFactory, NinjectControllerFactory>(new ContainerControlledLifetimeManager());
+
+            var factory = ObjectFactory.Resolve<ISitefinityControllerFactory>();
+
+            // Set our factory as a default controller factory
+            ControllerBuilder.Current.SetControllerFactory(factory);
         }
 
         private void SystemManager_ApplicationStart(object sender, EventArgs e)
@@ -38,14 +50,6 @@ namespace SitefinityWebApp
             {
                 FrontendModule.Current.DependencyResolver.Rebind<INavigationModel>().To<CustomNavigationModel>();
             }
-
-            // Use Service Locator mechanism to register our NinjectController factory which will provide DI for controller dependencies.
-            ObjectFactory.Container.RegisterType<ISitefinityControllerFactory, NinjectControllerFactory>(new ContainerControlledLifetimeManager());
-
-            var factory = ObjectFactory.Resolve<ISitefinityControllerFactory>();
-
-            // Set our factory as a default controller factory
-            ControllerBuilder.Current.SetControllerFactory(factory);
         }
     }
 }

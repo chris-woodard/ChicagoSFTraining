@@ -13,6 +13,13 @@ using Telerik.Sitefinity.Modules.Blogs;
 using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.DynamicModules.Model;
 using SitefinityWebApp.Mvc.ViewModels;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Multisite;
+using Telerik.OpenAccess;
+using Telerik.Sitefinity.Localization;
+using System.Threading;
+using Telerik.Sitefinity.Descriptors;
+using System.Globalization;
 
 namespace SitefinityWebApp.Mvc.Models
 {
@@ -24,20 +31,20 @@ namespace SitefinityWebApp.Mvc.Models
 
             Type webinarType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Webinars.Webinar");
 
-            using (var eManager = EventsManager.GetManager())
-            {
-                using (var manager = DynamicModuleManager.GetManager())
-                {
-                    var webinars = manager.GetDataItems(webinarType).Where(d => d.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live);
-                    var events = eManager.GetEvents().Where(e => e.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live);
+            var eManager = EventsManager.GetManager();
+            var manager = DynamicModuleManager.GetManager();
 
-                    var joined = (from w in webinars join e in events on w.GetValue<string>("Title") equals e.Title.ToString() select new WebinarViewModel() { Title = w.GetValue<string>("Title"), EventContent = e.Content.ToString() });
+            var webinars = manager.GetDataItems(webinarType).Where(d => d.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live);
+            var events = eManager.GetEvents().Where(e => e.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live);
 
-                    result = joined.ToList();
-                }
-            }
+
+            string fieldNameForCulture = LstringPropertyDescriptor.GetFieldNameForCulture("Title", Thread.CurrentThread.CurrentCulture);
+            
+                var joined = (from w in webinars join e in events on w.GetValue<string>(fieldNameForCulture) equals e.Title.ToString() select new WebinarViewModel() { Title = w.GetValue<string>(fieldNameForCulture), EventContent = e.Content });
+                result = joined.ToList();
 
             return result;
         }
     }
 }
+ 
